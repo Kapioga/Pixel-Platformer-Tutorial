@@ -9,4 +9,10 @@ func _ready():
 #Every physics frame in game
 func _physics_process(delta):
 	velocity.y +=2
-	move_and_slide(velocity) #Moves character and detects collisions/Gravity
+	#Buttons
+	if Input.is_action_just_pressed("ui_right"):
+		velocity.x=10
+	elif Input.is_action_just_pressed("ui_left"):
+		velocity.x=-10
+		
+	velocity = move_and_slide(velocity) #Moves character and detects collisions/Gravity
