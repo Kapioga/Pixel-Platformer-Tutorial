@@ -19,10 +19,10 @@ func _physics_process(delta):
 	else:
 		apply_acceleration(input.x)
 		
-	if Input.is_action_just_pressed("ui_up"):
+	if is_on_floor() and Input.is_action_just_pressed("ui_up"): #ensures that it jumps once
 		velocity.y=-120
 
-	velocity = move_and_slide(velocity) #Moves character and detects collisions/Gravity
+	velocity = move_and_slide(velocity, Vector2.UP) #Moves character and detects collisions/Gravity
 
 #Gravity
 func apply_gravity():
