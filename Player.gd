@@ -18,22 +18,26 @@ func _ready():
 func _physics_process(delta):
 	apply_gravity()
 	
-	#Adds friction
+	#Adds friction and movement
 	var input = Vector2.ZERO
 	input.x= Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
 	if input.x==0:
 		apply_friction()
+		get_node("AnimatedSprite") #Calls the node for sprite
+		$AnimatedSprite.animation = "Run"
 	else:
 		apply_acceleration(input.x)
-		
+	
+	#checks if player is jumping
 	if is_on_floor():
 		if Input.is_action_just_pressed("ui_up"): #ensures that it jumps once
 			velocity.y= JUMP_FORCE
 	else: 
 		if Input.is_action_just_released("ui_up") and velocity.y < JUMP_RELEASE_FORCE:
 			velocity.y= -70
-			
+		
+		#Fall gravity
 		if velocity.y > 0 :
 			velocity.y += ADDITIONAL_FALL
 
