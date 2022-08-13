@@ -24,10 +24,11 @@ func _physics_process(delta):
 	
 	if input.x==0:
 		apply_friction()
-		get_node("AnimatedSprite") #Calls the node for sprite
-		$AnimatedSprite.animation = "Run"
+		#Calls the node for sprite
+		$AnimatedSprite.animation = "idle"
 	else:
 		apply_acceleration(input.x)
+		$AnimatedSprite.animation = "Run"
 	
 	#checks if player is jumping
 	if is_on_floor():
