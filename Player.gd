@@ -34,15 +34,23 @@ func _physics_process(delta):
 	if is_on_floor():
 		if Input.is_action_just_pressed("ui_up"): #ensures that it jumps once
 			velocity.y= JUMP_FORCE
-	else: 
+	else:
+		$AnimatedSprite.animation = "Jump" 
 		if Input.is_action_just_released("ui_up") and velocity.y < JUMP_RELEASE_FORCE:
 			velocity.y= -70
 		
 		#Fall gravity
 		if velocity.y > 0 :
 			velocity.y += ADDITIONAL_FALL
-
+	
+	#Detects what fram to play when landing
+	var was_in_air = is_on_floor()
 	velocity = move_and_slide(velocity, Vector2.UP) #Moves character and detects collisions/Gravity
+	var just_landed = is_on_floor() and not was_in_air
+	
+	if just_landed: #Plays frame when landed
+		$AnimatedSprite.animation = "Run"
+		$AnimatedSprite.frame = 1
 
 #Gravity
 func apply_gravity():
